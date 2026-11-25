@@ -138,7 +138,9 @@ function hist(){
   L.sort((a,b)=>b.d<a.d?-1:1);
   const tt=L.reduce((a,f)=>a+total(f),0),pp=L.reduce((a,f)=>a+(+f.p||0),0);
   $("#app").innerHTML=`<div class="stats"><div class="stat"><b>${L.length}</b><span>petreceri</span></div><div class="stat"><b>${pp}</b><span>participanți</span></div></div>
-  <div class="chips"><button data-m="all" class="${flt==="all"?"on":""}">Tot 2026</button>${months.map(m=>`<button data-m="${m}" class="${flt==m?"on":""}">${MON[m-1]}</button>`).join("")}</div>
+ <div class="chips">${years.map(y=>`<button data-y="${y}" class="${y===yr?"on":""}">${y}</button>`).join("")}</div>
+  <div class="chips"><button data-m="all" class="${flt==="all"?"on":""}">Tot ${yr}</button>
+${months.map(m=>`<button data-m="${m}" class="${flt==m?"on":""}">${MON[m-1]}</button>`).join("")}</div>
   <input class="search" id="q" placeholder="Caută după nume sau sărbătorit…" value="${esc(qs)}">
   ${L.map(f=>{const p=dparts(f.d);return `<div class="item" data-id="${f.id}"><div class="dt">${p.day??"?"}<small>${MON[p.m-1]||""}</small></div><div class="mid"><b>${esc(f.n)||"(fără nume)"}${f.t==="LV"?'<span class="tag" style="display:inline">L-V</span>':""}</b><span>${f.s?esc(f.s)+" · ":""}${f.p} part. · ${esc(f.i)||"interval necompletat"}</span></div><div class="sum"><span class="rest">${fmt(rest(f))}</span><small>rest de plată · total ${fmt(total(f))}</small></div></div>`}).join("")||'<div class="empty">Nicio fișă găsită.</div>'}
   ${dbErr?`<div class="sheet"><b style="color:var(--or)">Nu pot accesa baza de date.</b><p class="note">${esc(dbErr)}<br>Verifică regulile Firestore pentru colecția „fise".</p></div>`:!loaded?'<p class="note">Se încarcă…</p>':""}
