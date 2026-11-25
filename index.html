@@ -152,7 +152,7 @@ ${months.map(m=>`<button data-m="${m}" class="${flt==m?"on":""}">${MON[m-1]}</bu
   $("#q").oninput=e=>{qs=e.target.value;const p=e.target.selectionStart;hist();const q=$("#q");q.focus();q.setSelectionRange(p,p)};
   document.querySelectorAll(".item").forEach(i=>i.onclick=()=>{cur=JSON.parse(JSON.stringify(S.find(f=>f.id===i.dataset.id)));isNew=false;view="form";render();scrollTo(0,0)});
   $("#exp").onclick=()=>{const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([JSON.stringify(S)],{type:"application/json"}));a.download="fise-party-backup.json";a.click()};
-  if($("#imp"))$("#imp").onclick=importSeed;
+  if($("#imp"))$("#imp").onclick=importSeed;   $("#impo").onclick=importOld;
 }
 function form(){
   const f=cur;if(!f.x[0])f.x[0]=SV[0][1];if(!f.x[2])f.x[2]=SV[1][1];
