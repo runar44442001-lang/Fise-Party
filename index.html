@@ -145,7 +145,7 @@ ${months.map(m=>`<button data-m="${m}" class="${flt==m?"on":""}">${MON[m-1]}</bu
   ${L.map(f=>{const p=dparts(f.d);return `<div class="item" data-id="${f.id}"><div class="dt">${p.day??"?"}<small>${MON[p.m-1]||""}</small></div><div class="mid"><b>${esc(f.n)||"(fără nume)"}${f.t==="LV"?'<span class="tag" style="display:inline">L-V</span>':""}</b><span>${f.s?esc(f.s)+" · ":""}${f.p} part. · ${esc(f.i)||"interval necompletat"}</span></div><div class="sum"><span class="rest">${fmt(rest(f))}</span><small>rest de plată · total ${fmt(total(f))}</small></div></div>`}).join("")||'<div class="empty">Nicio fișă găsită.</div>'}
   ${dbErr?`<div class="sheet"><b style="color:var(--or)">Nu pot accesa baza de date.</b><p class="note">${esc(dbErr)}<br>Verifică regulile Firestore pentru colecția „fise".</p></div>`:!loaded?'<p class="note">Se încarcă…</p>':""}
   ${loaded&&!S.length&&!dbErr?'<div class="sheet"><p>Baza de date e goală.</p><button class="pri" id="imp">Importă istoricul 2026 ('+SEED.length+' fișe)</button></div>':""}
-  <div class="actions"><button id="exp">Export backup</button></div>
+  <div class="actions"><button id="exp">Export backup</button><button id="impo">Importă istoric 2024–2025</button></div>
   <p class="note">Datele sunt salvate online și se văd la toți, în timp real.</p>`;
   document.querySelectorAll(".chips button[data-y]").forEach(b=>b.onclick=()=>{yr=+b.dataset.y;flt="all";hist()});
   document.querySelectorAll(".chips button[data-m]").forEach(b=>b.onclick=()=>{flt=b.dataset.m;hist()});
