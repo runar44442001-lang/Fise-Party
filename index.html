@@ -130,8 +130,11 @@ $("#app").innerHTML=`<div class="sheet"><h3>PREȚURI PARTY</h3><table class="pt"
 <div class="sheet"><h3>SERVICII EXTRA</h3>${SV.map(s=>`<div class="pl"><span>${s[0]}</span><b>${s[1]} lei</b></div>`).join("")}</div>
 <div class="sheet"><h3>CONSUMAȚIE</h3>${DR.filter(x=>!x[2]).map(x=>`<div class="pl"><span>${x[0]}</span><b>${x[1]} lei</b></div>`).join("")}</div>`}
 function hist(){
-  const months=[...new Set(S.map(f=>dparts(f.d).m))].sort((a,b)=>a-b);
-  let L=S.filter(f=>(flt==="all"||dparts(f.d).m==flt)&&(!qs||(f.n+" "+f.s).toLowerCase().includes(qs.toLowerCase())));
+ const years=[...new Set(S.map(f=>dparts(f.d).y))].filter(Boolean).sort((a,b)=>b-a);
+  if(!yr||!years.includes(yr))yr=years[0]||2026;
+  const inY=S.filter(f=>dparts(f.d).y===yr);
+  const months=[...new Set(inY.map(f=>dparts(f.d).m))].sort((a,b)=>a-b);
+  let L=inY.filter(f=>(flt==="all"||dparts(f.d).m==flt)&&(!qs||(f.n+" "+f.s).toLowerCase().includes(qs.toLowerCase())));
   L.sort((a,b)=>b.d<a.d?-1:1);
   const tt=L.reduce((a,f)=>a+total(f),0),pp=L.reduce((a,f)=>a+(+f.p||0),0);
   $("#app").innerHTML=`<div class="stats"><div class="stat"><b>${L.length}</b><span>petreceri</span></div><div class="stat"><b>${pp}</b><span>participanți</span></div></div>
