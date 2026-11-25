@@ -161,7 +161,7 @@ function form(){
   <div class="row g"><div>PREȚ/PARTICIPANT</div><div><input type="number" data-k="pp" value="${f.pp}"></div></div>
   <p class="note">Închirierea și prețul/participant se completează automat din tip și număr (vezi Prețuri), dar le poți modifica.</p></div>
   <div class="sheet"><div class="ct p"><div class="h"><div>CONSUMAȚIE</div><div>PREȚ</div><div>BUCĂȚI</div><div style="text-align:right">TOTAL</div></div>
-  ${DR.map((x,i)=>(x[2]&&!(f.q[i]>0))?"":`<div class="l"><div>${x[0]}</div><div>${dp(f,i)}</div><div><div class="qty"><button data-q="${i}" data-s="-1">−</button><input type="number" min="0" data-qi="${i}" value="${f.q[i]||0}"><button data-q="${i}" data-s="1">+</button></div></div><div id="dt${i}">${x[1]*(f.q[i]||0)}</div></div>`).join("")}
+  ${DR.map((x,i)=>(x[2]&&!(f.q[i]>0))?"":`<div class="l"><div>${x[0]}</div><div>${dp(f,i)}</div><div><div class="qty"><button data-q="${i}" data-s="-1">−</button><input type="number" min="0" data-qi="${i}" value="${f.q[i]||0}"><button data-q="${i}" data-s="1">+</button></div></div><div id="dt${i}">${dp(f,i)*(f.q[i]||0)}</div></div>`).join("")}
   <div class="tot"><span>TOTAL</span><span id="td"></span></div></div></div>
   <div class="sheet"><div class="ct b"><div class="h"><div>SERVICII EXTRA</div><div>PREȚ</div><div>BUCĂȚI</div><div style="text-align:right">TOTAL</div></div>
   ${["FOTOGRAF","BALOANE HELIU"].map((n,j)=>`<div class="l"><div>${n}</div><div><input class="priceinp" type="number" min="0" data-x="${2*j}" value="${f.x[2*j]||0}"></div><div><div class="qty"><button data-xq="${2*j+1}" data-s="-1">−</button><input type="number" min="0" data-x="${2*j+1}" value="${f.x[2*j+1]||0}"><button data-xq="${2*j+1}" data-s="1">+</button></div></div><div id="xt${j}"></div></div>`).join("")}
