@@ -101,6 +101,13 @@ if(CFG_OK)onSnapshot(fise,snap=>{S=snap.docs.map(d=>({...d.data(),id:d.id}));loa
  e=>{dbErr=e.message;if(view==="hist")hist()});
 async function importSeed(){if(!confirm("Importi cele "+SEED.length+" fișe din 2026 în baza de date?"))return;
  const b=writeBatch(db);SEED.forEach(r=>b.set(doc(db,"fise",r.id),r));await b.commit()}
+async function importOld(){
+ try{const r=await fetch("istoric-2024-2025.json");if(!r.ok)throw new Error("lipsește fișierul istoric-2024-2025.json de lângă index.html");
+ const A=(await r.json()).filter(x=>!S.some(s=>s.id===x.id));
+ if(!A.length)return alert("Istoricul 2024–2025 e deja importat.");
+ if(!confirm("Importi "+A.length+" fișe din 2024–2025?"))return;
+ for(let i=0;i<A.length;i+=400){const b=writeBatch(db);A.slice(i,i+400).forEach(x=>b.set(doc(db,"fise",x.id),x));await b.commit()}
+ alert("Gata: "+A.length+" fișe importate.")}catch(e){alert("Eroare: "+e.message)}}
 const $=s=>document.querySelector(s);
 const fmt=n=>new Intl.NumberFormat("ro-RO",{minimumFractionDigits:0,maximumFractionDigits:2}).format(n)+" RON";
 const esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
