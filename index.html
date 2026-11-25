@@ -113,7 +113,7 @@ const extraTot=f=>(+f.x[0]||0)*(+f.x[1]||0)+(+f.x[2]||0)*(+f.x[3]||0);
 const total=f=>rent(f)+(+f.p||0)*(+f.pp||0)+drinksTot(f)+extraTot(f);
 const rest=f=>total(f)-(+f.a||0);
 const blank=()=>({id:doc(fise).id,d:new Date().toISOString().slice(0,10),i:"16:00-19:00",n:"",s:"",p:10,t:"VS",pp:130,q:DR.map(()=>0),x:[500,0,490,0],a:500});
-let view="hist",flt="all",qs="",cur=null,isNew=false;
+let view="hist",flt="all",qs="",cur=null,isNew=false,yr=0;
 $("#tH").onclick=()=>{view="hist";render()};
 $("#tN").onclick=()=>{cur=blank();isNew=true;view="form";render();scrollTo(0,0)};
 $("#tP").onclick=()=>{view="prices";render()};
