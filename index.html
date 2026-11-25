@@ -108,7 +108,7 @@ const PR={wd:{tax:600,a:110,b:100},we:{tax:800,a:130,b:120}};
 const SV=[["Fotograf",500],["Baloane heliu",490]];
 const ppAuto=f=>(f.t==="LV"?PR.wd:PR.we)[(+f.p||0)>=19?"b":"a"];
 const rent=f=>f.r??(f.t==="LV"?PR.wd.tax:PR.we.tax);
-const drinksTot=f=>DR.reduce((a,x,i)=>a+x[1]*(+f.q[i]||0),0);
+const dp=(f,i)=>f.pr&&f.pr[i]!=null?f.pr[i]:DR[i][1]; const drinksTot=f=>DR.reduce((a,x,i)=>a+dp(f,i)*(+f.q[i]||0),0);
 const extraTot=f=>(+f.x[0]||0)*(+f.x[1]||0)+(+f.x[2]||0)*(+f.x[3]||0);
 const total=f=>rent(f)+(+f.p||0)*(+f.pp||0)+drinksTot(f)+extraTot(f);
 const rest=f=>total(f)-(+f.a||0);
