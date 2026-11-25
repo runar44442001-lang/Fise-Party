@@ -147,7 +147,8 @@ ${months.map(m=>`<button data-m="${m}" class="${flt==m?"on":""}">${MON[m-1]}</bu
   ${loaded&&!S.length&&!dbErr?'<div class="sheet"><p>Baza de date e goală.</p><button class="pri" id="imp">Importă istoricul 2026 ('+SEED.length+' fișe)</button></div>':""}
   <div class="actions"><button id="exp">Export backup</button></div>
   <p class="note">Datele sunt salvate online și se văd la toți, în timp real.</p>`;
-  document.querySelectorAll(".chips button").forEach(b=>b.onclick=()=>{flt=b.dataset.m;hist()});
+  document.querySelectorAll(".chips button[data-y]").forEach(b=>b.onclick=()=>{yr=+b.dataset.y;flt="all";hist()});
+  document.querySelectorAll(".chips button[data-m]").forEach(b=>b.onclick=()=>{flt=b.dataset.m;hist()});
   $("#q").oninput=e=>{qs=e.target.value;const p=e.target.selectionStart;hist();const q=$("#q");q.focus();q.setSelectionRange(p,p)};
   document.querySelectorAll(".item").forEach(i=>i.onclick=()=>{cur=JSON.parse(JSON.stringify(S.find(f=>f.id===i.dataset.id)));isNew=false;view="form";render();scrollTo(0,0)});
   $("#exp").onclick=()=>{const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([JSON.stringify(S)],{type:"application/json"}));a.download="fise-party-backup.json";a.click()};
